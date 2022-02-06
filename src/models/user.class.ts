@@ -1,5 +1,3 @@
-
-
 export class User {
     firstName: string;
     lastName: string;
@@ -7,6 +5,7 @@ export class User {
     address: string;
     zipCode: number;
     city: string;
+    email: string;
 
     constructor(obj?: any) {
 
@@ -16,7 +15,7 @@ export class User {
         this.address = obj ? obj.address : '';
         this.zipCode = obj ? obj.zipCode : '';
         this.city = obj ? obj.city : '';
-
+        this.email = obj ? obj.email : '';
     }
 
     public toSJON() {
@@ -27,6 +26,7 @@ export class User {
             address : this.address,
             zipCode : this.zipCode,
             city : this.city,
+            email: this.email,
         }
     }
 }
