@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatDialogRef } from '@angular/material/dialog';
+import { User } from 'src/models/user.class';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -6,10 +9,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dialog-edit-user.component.scss']
 })
 export class DialogEditUserComponent implements OnInit {
+  user: User;
+  loading = false;
+  birthDate: Date;
+  userId: string;
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef <DialogEditUserComponent>, private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
+  }
+  saveUser(){
+    this.loading = true;
+    this.firestore
+    .collection('users')
+    .doc(this.userId)
+    .update(this.user.toSJON())
+    .then(()=>{
+      this.loading = false;
+      this.dialogRef.close();
+    });
   }
 
 }
